@@ -1,0 +1,28 @@
+<mat-toolbar class="main-navbar">
+  <div>
+    <span>ClientLogo</span>
+  </div>
+  <div>
+    <mat-nav-list role="list" class="menu-list">
+      <a mat-list-item routerLink="/client/dashboard">Головна</a>
+      <a mat-list-item routerLink="/client/shop-list">Магазин</a>
+      <a mat-list-item>Контакти</a>
+    </mat-nav-list>
+  </div>
+
+  <!-- <button
+    mat-icon-button
+    class="example-icon favorite-icon"
+    aria-label="Example icon-button with heart icon"
+  >
+    <mat-icon>shopping_bag</mat-icon>
+  </button> -->
+  <button
+    mat-icon-button
+    matBadge="{{ itemCount }}"
+    matBadgeColor="accent"
+    aria-label="Example icon-button with a badge"
+  >
+    <mat-icon>shopping_bag</mat-icon>
+  </button>
+</mat-toolbar>
