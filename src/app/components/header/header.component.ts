@@ -1,7 +1,7 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { MaterialModule } from '../../modules/material.module';
 import { RouterLink } from '@angular/router';
-import { ProductService } from '../../services/product.service';
+import { CartService } from '../../services/cart.service';
 
 @Component({
   selector: 'app-header',
@@ -13,10 +13,10 @@ import { ProductService } from '../../services/product.service';
 export class HeaderComponent implements OnInit {
   itemCount: number = 0;
 
-  readonly productService = inject(ProductService);
+  readonly cartService = inject(CartService);
 
   ngOnInit(): void {
-    this.productService.getProducts().subscribe((products) => {
+    this.cartService.getSelectedProducts().subscribe((products) => {
       this.itemCount = products.length;
     });
   }

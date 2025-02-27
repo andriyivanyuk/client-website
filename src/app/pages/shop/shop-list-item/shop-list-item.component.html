@@ -1,8 +1,8 @@
 <mat-card class="card">
-  <img mat-card-image src="url_до_зображення" alt="Зображення продукту" />
+  <img mat-card-image [src]="product!.fullPath" alt="Зображення продукту" />
   <mat-card-header>
     <div mat-card-avatar class="product-image"></div>
-    <mat-card-title>{{ product.name }}</mat-card-title>
+    <mat-card-title>{{ product.title }}</mat-card-title>
     <mat-card-subtitle>{{ product.price }}, грн</mat-card-subtitle>
   </mat-card-header>
 

@@ -13,6 +13,10 @@ import {
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MaterialModule } from './modules/material.module';
+import {
+  provideHttpClient,
+  withInterceptorsFromDi,
+} from '@angular/common/http';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -20,6 +24,7 @@ export const appConfig: ApplicationConfig = {
     provideRouter(routes),
     provideClientHydration(withEventReplay()),
     provideAnimationsAsync(),
+    provideHttpClient(withInterceptorsFromDi()),
     importProvidersFrom(FormsModule, ReactiveFormsModule, MaterialModule),
   ],
 };
