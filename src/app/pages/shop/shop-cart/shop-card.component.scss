@@ -1,17 +1,10 @@
-.card {
-  width: fit-content;
-
-  img {
-    width: 100px;
-  }
-
-  .btn-group {
-    margin-top: 25px;
-  }
+.shop-card {
+  max-width: 1200px;
 }
 
 .total-cost {
-  font-weight: 600;
+  font-size: 22px;
+  font-weight: 500;
 }
 
 .product-actions {
@@ -25,7 +18,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  font-weight: 600;
+  font-weight: 400;
   font-size: 18px;
 }
 
@@ -37,6 +30,10 @@
   .shop-btn {
     background-color: #285059 !important;
   }
+}
+
+.mdc-button:disabled {
+  color: #b7b1b1;
 }
 
 .mat-icon {

@@ -13,21 +13,31 @@ import {
 import { OrderRequest } from '../../../models/Order';
 import { NgxUiLoaderService } from 'ngx-ui-loader';
 import { CartService } from '../../../services/cart.service';
+import { HeadingProfileComponent } from '../../../components/heading-profile/heading-profile.component';
 
-interface Item {
-  product_id: number;
-  quantity: number;
+interface CartItem {
+  id: number;
+  title: string;
   price: number;
+  quantity: number;
+  src?: string;
 }
 
 @Component({
   selector: 'app-checkout',
-  imports: [MaterialModule, RouterLink, ReactiveFormsModule, FormsModule],
+  imports: [
+    MaterialModule,
+    RouterLink,
+    ReactiveFormsModule,
+    FormsModule,
+    HeadingProfileComponent,
+  ],
   templateUrl: './checkout.component.html',
   styleUrl: './checkout.component.scss',
   providers: [OrderService],
 })
 export class CheckoutComponent implements OnInit {
+  title: string = 'Замовлення товару';
   form!: FormGroup;
 
   readonly fb = inject(FormBuilder);
@@ -38,28 +48,33 @@ export class CheckoutComponent implements OnInit {
 
   ngOnInit(): void {
     this.createForm();
-    // this.cartService.getConfirmedProducts().subscribe((res) => {
-    //   res.map((item) => {
-    //     const group = this.fb.group({
-    //       product_id: [item.id],
-    //       quantity: [item.quantity],
-    //       price: [item.price],
-    //     });
-    //     this.items.push(group);
-    //   });
-    // });
-    console.log(this.items);
+    this.cartService.getSelectedProducts().subscribe({
+      next: (items) => {
+        items.forEach((item) => {
+          const group = this.fb.group({
+            title: [item.title],
+            product_id: [item.product_id],
+            quantity: [item.quantity],
+            price: [item.price],
+          });
+          this.items.push(group);
+        });
+      },
+      error: (error) => {
+        console.error(error);
+      },
+    });
   }
 
   public createForm() {
     this.form = this.fb.group({
-      title: ['Andriy', [Validators.required]],
-      email: ['customer@example.com', [Validators.required, Validators.email]],
+      title: ['', [Validators.required]],
+      email: ['', [Validators.required, Validators.email]],
       phone: [
         '1234567890',
         [Validators.required, Validators.pattern('[0-9]{10}')],
       ],
-      items: this.fb.array([]),
+      items: this.fb.array([], [Validators.required]),
     });
   }
 
@@ -67,28 +82,16 @@ export class CheckoutComponent implements OnInit {
     return this.form.get('items') as FormArray;
   }
 
-  createItems(): FormGroup[] {
-    return [];
-    // const itemsData = [
-    //   { product_id: 1, quantity: 2, price: 19.99 },
-    //   { product_id: 2, quantity: 1, price: 39.99 },
-    // ];
-
-    // return itemsData.map((item) =>
-    //   this.fb.group({
-    //     product_id: [item.product_id, Validators.required],
-    //     quantity: [item.quantity, [Validators.required, Validators.min(1)]],
-    //     price: [item.price, Validators.required],
-    //   })
-    // );
+  get getTotalCost(): number {
+    return this.items.value
+      .map((t: CartItem) => t.price * t.quantity)
+      .reduce((acc: any, value: any) => acc + value, 0);
   }
 
   public createOrder() {
     if (this.form.valid) {
       this.loader.start();
       const request: OrderRequest = this.form.value;
-
-      console.log(request);
 
       this.orderService.createOrder(request).subscribe({
         next: (response) => {

@@ -53,6 +53,7 @@ export class ProductService {
         stock: product.stock,
         status_name: product.status_name,
         fullPath: primaryImage ? primaryImage.fullPath : null,
+        quantity: product.quantity || null,
       };
     });
   }

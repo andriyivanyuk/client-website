@@ -26,7 +26,7 @@ interface CartItem {
 })
 export class ShopCardComponent implements OnInit, OnDestroy {
   title: string = 'Кошик';
-  
+
   private subscription!: Subscription;
 
   displayedColumns: string[] = [
@@ -54,8 +54,8 @@ export class ShopCardComponent implements OnInit, OnDestroy {
           return {
             id: item.product_id,
             title: item.title,
-            price: Number(item.price),
-            quantity: 1,
+            price: +item.price,
+            quantity: item.quantity,
             src: item.fullPath,
           };
         });
@@ -71,13 +71,7 @@ export class ShopCardComponent implements OnInit, OnDestroy {
   }
 
   public updateQuantity(item: CartItem, change: number): void {
-    const index = this.dataSource.data.findIndex((i) => i.id === item.id);
-    if (index > -1) {
-      this.dataSource.data[index].quantity += change;
-      if (this.dataSource.data[index].quantity < 1) {
-        this.dataSource.data.splice(index, 1);
-      }
-    }
+    this.cartService.updateQuantity(item.id, change);
   }
 
   public removeItem(item: CartItem): void {

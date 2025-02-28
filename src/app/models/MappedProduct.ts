@@ -5,4 +5,5 @@ export interface MappedProduct {
   stock: number;
   status_name: string;
   fullPath?: string;
+  quantity: number;
 }

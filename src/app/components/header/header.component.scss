@@ -7,6 +7,13 @@
   background: #285059;
   color: white;
   z-index: 99;
+  padding: 0 16px;
+
+  a {
+    cursor: pointer;
+    color: white;
+    text-decoration: none;
+  }
 
   .menu-list {
     display: flex;

@@ -1,7 +1,41 @@
 .card {
-  width: fit-content;
+  max-width: 800px;
+}
 
-  img {
-    width: 100px;
+.order-form {
+  display: flex;
+  flex-direction: column;
+  max-width: 800px;
+}
+
+.btn-group {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  column-gap: 16px;
+}
+
+.actions {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  .total-cost {
+    font-size: 22px;
+    font-weight: 500;
   }
+}
+
+.purchase-items {
+  display: flex;
+  column-gap: 16px;
+}
+
+.mdc-button:disabled {
+  color: #b7b1b1;
+}
+
+button {
+  background: #285059 !important;
+  color: white !important;
 }
