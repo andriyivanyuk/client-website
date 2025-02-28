@@ -9,3 +9,45 @@
     margin-top: 25px;
   }
 }
+
+.total-cost {
+  font-weight: 600;
+}
+
+.product-actions {
+  margin-top: 25px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.empty-cart {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+  font-size: 18px;
+}
+
+.btn-group {
+  display: flex;
+  align-items: center;
+  column-gap: 16px;
+
+  .shop-btn {
+    background-color: #285059 !important;
+  }
+}
+
+.mat-icon {
+  color: #285059;
+}
+
+.remove-btn {
+  margin-left: -12px;
+}
+
+.quantity-btn {
+  background: #285059;
+  color: white;
+}

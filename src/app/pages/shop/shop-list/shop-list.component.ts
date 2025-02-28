@@ -8,15 +8,17 @@ import { PageEvent } from '@angular/material/paginator';
 import { Subscription } from 'rxjs';
 import { NgxUiLoaderService } from 'ngx-ui-loader';
 import { MappedProduct } from '../../../models/MappedProduct';
+import { HeadingProfileComponent } from '../../../components/heading-profile/heading-profile.component';
 
 @Component({
   selector: 'app-shop-list',
-  imports: [ShopListItemComponent],
+  imports: [ShopListItemComponent, HeadingProfileComponent],
   templateUrl: './shop-list.component.html',
   styleUrl: './shop-list.component.scss',
   providers: [ProductService],
 })
 export class ShopListComponent implements OnInit {
+  title: string = 'Товари';
   form!: FormGroup;
 
   private subscriptions: Subscription = new Subscription();

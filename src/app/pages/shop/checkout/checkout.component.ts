@@ -38,16 +38,16 @@ export class CheckoutComponent implements OnInit {
 
   ngOnInit(): void {
     this.createForm();
-    this.cartService.getConfirmedProducts().subscribe((res) => {
-      res.map((item) => {
-        const group = this.fb.group({
-          product_id: [item.id],
-          quantity: [item.quantity],
-          price: [item.price],
-        });
-        this.items.push(group);
-      });
-    });
+    // this.cartService.getConfirmedProducts().subscribe((res) => {
+    //   res.map((item) => {
+    //     const group = this.fb.group({
+    //       product_id: [item.id],
+    //       quantity: [item.quantity],
+    //       price: [item.price],
+    //     });
+    //     this.items.push(group);
+    //   });
+    // });
     console.log(this.items);
   }
 

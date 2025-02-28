@@ -1,7 +1,25 @@
 .card {
-  width: fit-content;
+  max-width: 250px;
 
-  img {
-    width: 100px;
+  .product-title {
+    font-size: 18px;
+    font-weight: 500;
   }
+
+  .mat-mdc-card-content {
+    padding: 16px;
+  }
+
+  .mat-mdc-card-actions {
+    padding: 16px;
+    justify-content: space-between;
+  }
+}
+
+.product-price {
+  font-size: 22px;
+}
+
+.mat-icon {
+  color: #285059;
 }

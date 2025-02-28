@@ -1,4 +1,4 @@
-import { Component, inject, Input, OnInit } from '@angular/core';
+import { Component, inject, OnDestroy, OnInit } from '@angular/core';
 import { MaterialModule } from '../../../modules/material.module';
 import { RouterLink } from '@angular/router';
 import { MappedProduct } from '../../../models/MappedProduct';
@@ -6,6 +6,8 @@ import { CommonModule } from '@angular/common';
 import { CartService } from '../../../services/cart.service';
 import { NgxUiLoaderService } from 'ngx-ui-loader';
 import { MatTableDataSource } from '@angular/material/table';
+import { Subscription, take } from 'rxjs';
+import { HeadingProfileComponent } from '../../../components/heading-profile/heading-profile.component';
 
 interface CartItem {
   id: number;
@@ -17,13 +19,15 @@ interface CartItem {
 
 @Component({
   selector: 'app-shop-cart',
-  imports: [MaterialModule, RouterLink, CommonModule],
+  imports: [MaterialModule, RouterLink, CommonModule, HeadingProfileComponent],
   templateUrl: './shop-card.component.html',
   styleUrl: './shop-card.component.scss',
   providers: [],
 })
-export class ShopCardComponent implements OnInit {
-  products: MappedProduct[] = [];
+export class ShopCardComponent implements OnInit, OnDestroy {
+  title: string = 'Кошик';
+  
+  private subscription!: Subscription;
 
   displayedColumns: string[] = [
     'title',
@@ -43,19 +47,21 @@ export class ShopCardComponent implements OnInit {
   }
 
   public getSelectedProducts() {
-    this.cartService.getSelectedProducts().subscribe((result) => {
-      const selectedProducts = result.map((item) => {
-        return {
-          id: item.product_id,
-          title: item.title,
-          price: Number(item.price),
-          quantity: 1,
-          src: item.fullPath,
-        };
-      });
+    this.subscription = this.cartService
+      .getSelectedProducts()
+      .subscribe((result) => {
+        const selectedProducts = result.map((item) => {
+          return {
+            id: item.product_id,
+            title: item.title,
+            price: Number(item.price),
+            quantity: 1,
+            src: item.fullPath,
+          };
+        });
 
-      this.dataSource.data = selectedProducts;
-    });
+        this.dataSource.data = selectedProducts;
+      });
   }
 
   get getTotalCost(): number {
@@ -75,10 +81,10 @@ export class ShopCardComponent implements OnInit {
   }
 
   public removeItem(item: CartItem): void {
-    this.dataSource.data = this.dataSource.data.filter((i) => i.id !== item.id);
+    this.cartService.removeProduct(item.id);
   }
 
-  public hanldeItems() {
-    this.cartService.setConfirmedProducts(this.dataSource.data);
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe();
   }
 }

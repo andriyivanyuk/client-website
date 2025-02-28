@@ -1,4 +1,4 @@
-<mat-card class="card">
+<!-- <mat-card class="card">
   <img mat-card-image [src]="product!.fullPath" alt="Зображення продукту" />
   <mat-card-header>
     <div mat-card-avatar class="product-image"></div>
@@ -11,5 +11,25 @@
   </mat-card-content>
   <mat-card-actions>
     <button mat-button (click)="addToCart(product)">Додати до кошика</button>
+  </mat-card-actions>
+</mat-card> -->
+<!-- 29 999₴ -->
+<mat-card class="card" appearance="outlined">
+  <img mat-card-image [src]="product!.fullPath" alt="Photo of a Shiba Inu" />
+  <mat-card-content>
+    <div class="product-title">
+      {{ product.title }}
+    </div>
+  </mat-card-content>
+  <mat-card-actions>
+    <div class="product-price">{{ product.price }} ₴</div>
+    <button
+      (click)="addToCart(product)"
+      mat-icon-button
+      matBadgeColor="accent"
+      aria-label="Example icon-button with a badge"
+    >
+      <mat-icon>shopping_bag</mat-icon>
+    </button>
   </mat-card-actions>
 </mat-card>
