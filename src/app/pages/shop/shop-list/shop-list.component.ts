@@ -8,11 +8,11 @@ import { PageEvent } from '@angular/material/paginator';
 import { Subscription } from 'rxjs';
 import { NgxUiLoaderService } from 'ngx-ui-loader';
 import { MappedProduct } from '../../../models/MappedProduct';
-import { HeadingProfileComponent } from '../../../components/heading-profile/heading-profile.component';
+import { HeadingComponent } from "../../../components/heading/heading.component";
 
 @Component({
   selector: 'app-shop-list',
-  imports: [ShopListItemComponent, HeadingProfileComponent],
+  imports: [ShopListItemComponent, HeadingComponent],
   templateUrl: './shop-list.component.html',
   styleUrl: './shop-list.component.scss',
   providers: [ProductService],

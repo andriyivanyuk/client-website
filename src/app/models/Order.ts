@@ -5,10 +5,14 @@ export interface OrderItem {
 }
 
 export interface OrderRequest {
-  title: string;
+  firstName: string;
+  lastName: string;
   email: string;
   phone: string;
   items: OrderItem[];
+  departmentNumber: string;
+  city: string;
+  comment: string;
 }
 
 export interface OrderResponse {

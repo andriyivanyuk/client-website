@@ -1,13 +1,12 @@
 import { Component, inject, OnDestroy, OnInit } from '@angular/core';
 import { MaterialModule } from '../../../modules/material.module';
 import { RouterLink } from '@angular/router';
-import { MappedProduct } from '../../../models/MappedProduct';
 import { CommonModule } from '@angular/common';
 import { CartService } from '../../../services/cart.service';
 import { NgxUiLoaderService } from 'ngx-ui-loader';
 import { MatTableDataSource } from '@angular/material/table';
 import { Subscription, take } from 'rxjs';
-import { HeadingProfileComponent } from '../../../components/heading-profile/heading-profile.component';
+import { HeadingComponent } from '../../../components/heading/heading.component';
 
 interface CartItem {
   id: number;
@@ -19,7 +18,7 @@ interface CartItem {
 
 @Component({
   selector: 'app-shop-cart',
-  imports: [MaterialModule, RouterLink, CommonModule, HeadingProfileComponent],
+  imports: [MaterialModule, RouterLink, CommonModule, HeadingComponent],
   templateUrl: './shop-card.component.html',
   styleUrl: './shop-card.component.scss',
   providers: [],

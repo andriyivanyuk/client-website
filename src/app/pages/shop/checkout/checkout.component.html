@@ -1,12 +1,20 @@
 <div>
-  <app-heading-profile [title]="title"></app-heading-profile>
+  <app-heading [title]="title"></app-heading>
 
   <form [formGroup]="form" class="order-form">
     <mat-form-field appearance="fill">
       <mat-label>Ім'я</mat-label>
-      <input matInput formControlName="title" />
-      @if(form.get('title')?.errors?.['required']) {
-      <mat-error> Email is required </mat-error>
+      <input matInput formControlName="firstName" />
+      @if(form.get('firstName')?.errors?.['required']) {
+      <mat-error>Ім'я не можк бути пустим</mat-error>
+      }
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Прізвище</mat-label>
+      <input matInput formControlName="lastName" />
+      @if(form.get('lastName')?.errors?.['required']) {
+      <mat-error>Прізвище не може бути пустим</mat-error>
       }
     </mat-form-field>
 
@@ -46,6 +54,48 @@
       </div>
       }
     </div>
+    <div>
+      <h3>Спосіб доставки</h3>
+      <mat-form-field appearance="fill">
+        <mat-label>Виберіть місто</mat-label>
+        <input
+          type="text"
+          matInput
+          formControlName="city"
+          [matAutocomplete]="auto"
+        />
+        <mat-autocomplete
+          #auto="matAutocomplete"
+          (optionSelected)="onCitySelected($event)"
+        >
+          @for(city of cities; track city.CityID) {
+          <mat-option [value]="city.Description">
+            {{ city.Description }}
+          </mat-option>
+          }
+        </mat-autocomplete>
+      </mat-form-field>
+
+      <mat-form-field appearance="fill">
+        <mat-label>Виберіть відділення</mat-label>
+        <input
+          matInput
+          formControlName="departmentNumber"
+          [matAutocomplete]="autoBranch"
+        />
+        <mat-autocomplete #autoBranch="matAutocomplete">
+          @for (option of filteredOptions | async; track option) {
+          <mat-option [value]="option.Description">{{
+            option.Description
+          }}</mat-option>
+          }
+        </mat-autocomplete>
+      </mat-form-field>
+    </div>
+    <mat-form-field>
+      <mat-label>Коментар</mat-label>
+      <textarea matInput formControlName="comment"></textarea>
+    </mat-form-field>
     <div class="actions">
       <div class="total-cost">Загальна вартість: {{ getTotalCost }} ₴</div>
       <div class="btn-group">
