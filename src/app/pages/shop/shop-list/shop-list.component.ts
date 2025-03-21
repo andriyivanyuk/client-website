@@ -5,13 +5,13 @@ import { MatTableDataSource } from '@angular/material/table';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { PageEvent } from '@angular/material/paginator';
 import { catchError, Subscription } from 'rxjs';
-import { NgxUiLoaderService } from 'ngx-ui-loader';
 import { MappedProduct } from '../../../models/MappedProduct';
 import { HeadingComponent } from '../../../components/heading/heading.component';
+import { MaterialModule } from '../../../modules/material.module';
 
 @Component({
   selector: 'app-shop-list',
-  imports: [ShopListItemComponent, HeadingComponent],
+  imports: [ShopListItemComponent, HeadingComponent, MaterialModule],
   templateUrl: './shop-list.component.html',
   styleUrl: './shop-list.component.scss',
   providers: [ProductService],
@@ -32,7 +32,6 @@ export class ShopListComponent implements OnInit {
 
   readonly fb = inject(FormBuilder);
   readonly productService = inject(ProductService);
-  readonly loader = inject(NgxUiLoaderService);
 
   public createForm() {
     this.form = this.fb.group({
@@ -51,26 +50,28 @@ export class ShopListComponent implements OnInit {
   }
 
   public getProducts(value: string = ''): void {
-    this.loader.start();
+    this.isLoaded = false;
     const subscription = this.productService
       .getProducts(this.page, this.limit, value)
       .pipe(
         catchError((error) => {
-          this.loader.stop();
           throw 'error in getting products: ' + error;
         })
       )
-      .subscribe((result) => {
-        this.loader.stop();
-
-        const products = this.productService.mapProducts(result.products);
-        this.products = products;
-        this.totalProducts = products.length;
-        if (result.products.length) {
-          this.isLoaded = true;
-        } else {
-          this.isLoaded = false;
-        }
+      .subscribe({
+        next: (result) => {
+          const products = this.productService.mapProducts(result.products);
+          this.products = products;
+          this.totalProducts = products.length;
+          if (result.products.length) {
+            this.isLoaded = true;
+          } else {
+            this.isLoaded = false;
+          }
+        },
+        error: (error) => {
+          console.error(error);
+        },
       });
     this.subscriptions.add(subscription);
   }

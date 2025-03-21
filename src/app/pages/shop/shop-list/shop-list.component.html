@@ -4,7 +4,12 @@
   (refresh)="handleRefresh()"
 ></app-heading>
 <div class="products">
-  @for(product of products; track product) {
+  @if(isLoaded) { @for(product of products; track product) {
   <app-shop-list-item [product]="product"></app-shop-list-item>
+  } } @else {
+  <mat-progress-bar
+    mode="indeterminate"
+    class="loading-progress"
+  ></mat-progress-bar>
   }
 </div>

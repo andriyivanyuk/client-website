@@ -1,6 +1,17 @@
+@use "@angular/material" as mat;
+@use "../../../../assets/scss//variables" as vars;
+
 .products {
   display: flex;
   align-items: center;
   gap: 45px;
   flex-wrap: wrap;
+}
+
+.loading-progress {
+  @include mat.progress-bar-overrides(
+    (
+      active-indicator-color: vars.$main-color,
+    )
+  );
 }

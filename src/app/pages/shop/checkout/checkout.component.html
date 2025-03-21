@@ -99,11 +99,11 @@
     <div class="actions">
       <div class="total-cost">Загальна вартість: {{ getTotalCost }} ₴</div>
       <div class="btn-group">
-        <button class="primary-button" routerLink="/client/shop-cart">
+        <button class="secondary-button" routerLink="/client/shop-cart">
           Кошик
         </button>
         <button
-          class="secondary-button"
+          class="primary-button"
           [disabled]="!form.valid"
           (click)="createOrder()"
         >
