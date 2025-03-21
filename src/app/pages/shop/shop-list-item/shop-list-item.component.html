@@ -1,35 +1,17 @@
-<!-- <mat-card class="card">
-  <img mat-card-image [src]="product!.fullPath" alt="Зображення продукту" />
-  <mat-card-header>
-    <div mat-card-avatar class="product-image"></div>
-    <mat-card-title>{{ product.title }}</mat-card-title>
-    <mat-card-subtitle>{{ product.price }}, грн</mat-card-subtitle>
-  </mat-card-header>
+<div class="card">
+  <img [src]="product!.fullPath" />
 
-  <mat-card-content>
-    <p>Тут короткий опис продукту...</p>
-  </mat-card-content>
-  <mat-card-actions>
-    <button mat-button (click)="addToCart(product)">Додати до кошика</button>
-  </mat-card-actions>
-</mat-card> -->
-<!-- 29 999₴ -->
-<mat-card class="card" appearance="outlined">
-  <img mat-card-image [src]="product!.fullPath" alt="Photo of a Shiba Inu" />
-  <mat-card-content>
-    <div class="product-title">
-      {{ product.title }}
+  <div class="product-details">
+    <div class="product-details-title">{{ product.title }}</div>
+    <div class="product-details-actions">
+      <div class="price">{{ product.price }} ₴</div>
+      <button
+        (click)="addToCart(product)"
+        mat-icon-button
+        matTooltip="Додати в кошик"
+      >
+        <mat-icon>shopping_bag</mat-icon>
+      </button>
     </div>
-  </mat-card-content>
-  <mat-card-actions>
-    <div class="product-price">{{ product.price }} ₴</div>
-    <button
-      (click)="addToCart(product)"
-      mat-icon-button
-      matBadgeColor="accent"
-      aria-label="Example icon-button with a badge"
-    >
-      <mat-icon>shopping_bag</mat-icon>
-    </button>
-  </mat-card-actions>
-</mat-card>
+  </div>
+</div>

@@ -1,22 +1,32 @@
 <mat-toolbar class="main-navbar">
-  <div>
-    <a routerLink="/client/dashboard">Client logo</a>
-  </div>
-  <div>
-    <mat-nav-list role="list" class="menu-list">
-      <a mat-list-item routerLink="/client/dashboard">Головна</a>
-      <a mat-list-item routerLink="/client/shop-list">Магазин</a>
-      <a mat-list-item>Контакти</a>
-    </mat-nav-list>
-  </div>
+  <a routerLink="/client/dashboard" class="main-logo">
+    <img src="assets/images/logo.png" />
+  </a>
+
+  <ul class="menu-list">
+    <li>
+      <a routerLink="/client/dashboard" routerLinkActive="active-link"
+        >Головна</a
+      >
+    </li>
+    <li>
+      <a routerLink="/client/shop-list" routerLinkActive="active-link"
+        >Магазин</a
+      >
+    </li>
+    <li>
+      <a routerLink="/client/contact" routerLinkActive="active-link"
+        >Контакти</a
+      >
+    </li>
+  </ul>
 
   <button
     routerLink="/client/shop-cart"
     mat-icon-button
     matBadge="{{ itemCount }}"
-    matBadgeColor="accent"
-    aria-label="Example icon-button with a badge"
+    matTooltip="Кошик товарів"
   >
-    <mat-icon>shopping_bag</mat-icon>
+    <mat-icon>shopping_cart</mat-icon>
   </button>
 </mat-toolbar>

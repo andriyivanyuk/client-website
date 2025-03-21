@@ -16,7 +16,7 @@ export class ShopListItemComponent {
 
   readonly cartService = inject(CartService);
 
-  public addToCart(product: MappedProduct) {
+  public addToCart(product: MappedProduct): void {
     this.cartService.selectProduct(product);
   }
 }

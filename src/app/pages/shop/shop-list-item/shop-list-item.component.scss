@@ -1,25 +1,35 @@
+@use "@angular/material" as mat;
+
 .card {
-  max-width: 250px;
+  max-width: 230px;
+  display: flex;
+  flex-direction: column;
+  cursor: pointer;
+  transition: box-shadow 0.3s ease;
 
-  .product-title {
-    font-size: 18px;
-    font-weight: 500;
+  .product-details {
+    padding: 12px;
+
+    &-title {
+      font-size: 14px;
+      font-weight: 500;
+    }
+
+    &-actions {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .price {
+      font-size: 16px;
+    }
+
+    .mat-icon {
+      color: #285059;
+    }
   }
-
-  .mat-mdc-card-content {
-    padding: 16px;
+  &:hover {
+    box-shadow: 0 0 0 3px #87cbdb;
   }
-
-  .mat-mdc-card-actions {
-    padding: 16px;
-    justify-content: space-between;
-  }
-}
-
-.product-price {
-  font-size: 22px;
-}
-
-.mat-icon {
-  color: #285059;
 }

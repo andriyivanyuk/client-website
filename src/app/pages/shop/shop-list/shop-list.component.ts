@@ -1,14 +1,13 @@
 import { Component, inject, OnInit } from '@angular/core';
-import { MaterialModule } from '../../../modules/material.module';
 import { ShopListItemComponent } from '../shop-list-item/shop-list-item.component';
 import { ProductService } from '../../../services/product.service';
 import { MatTableDataSource } from '@angular/material/table';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { PageEvent } from '@angular/material/paginator';
-import { Subscription } from 'rxjs';
+import { catchError, Subscription } from 'rxjs';
 import { NgxUiLoaderService } from 'ngx-ui-loader';
 import { MappedProduct } from '../../../models/MappedProduct';
-import { HeadingComponent } from "../../../components/heading/heading.component";
+import { HeadingComponent } from '../../../components/heading/heading.component';
 
 @Component({
   selector: 'app-shop-list',
@@ -47,9 +46,20 @@ export class ShopListComponent implements OnInit {
     this.getProducts();
   }
 
+  public handleRefresh(): void {
+    this.getProducts();
+  }
+
   public getProducts(value: string = ''): void {
+    this.loader.start();
     const subscription = this.productService
       .getProducts(this.page, this.limit, value)
+      .pipe(
+        catchError((error) => {
+          this.loader.stop();
+          throw 'error in getting products: ' + error;
+        })
+      )
       .subscribe((result) => {
         this.loader.stop();
 

@@ -1,4 +1,8 @@
-<app-heading [title]="title"></app-heading>
+<app-heading
+  [title]="title"
+  [refreshIcon]="true"
+  (refresh)="handleRefresh()"
+></app-heading>
 <div class="products">
   @for(product of products; track product) {
   <app-shop-list-item [product]="product"></app-shop-list-item>

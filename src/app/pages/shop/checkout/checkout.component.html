@@ -99,10 +99,12 @@
     <div class="actions">
       <div class="total-cost">Загальна вартість: {{ getTotalCost }} ₴</div>
       <div class="btn-group">
-        <button mat-flat-button routerLink="/client/shop-cart">Кошик</button>
+        <button class="primary-button" routerLink="/client/shop-cart">
+          Кошик
+        </button>
         <button
+          class="secondary-button"
           [disabled]="!form.valid"
-          mat-flat-button
           (click)="createOrder()"
         >
           Створити замовлення

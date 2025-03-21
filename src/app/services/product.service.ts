@@ -1,8 +1,9 @@
-import { HttpClient, HttpParams } from '@angular/common/http';
+import { HttpClient, HttpParams, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, map, Observable } from 'rxjs';
+import { map, Observable } from 'rxjs';
 import { ProductImage, ProductResponse } from '../models/ProductResponse';
 import { MappedProduct } from '../models/MappedProduct';
+import { environment } from '../../environments/environment';
 
 @Injectable()
 export class ProductService {
@@ -23,8 +24,10 @@ export class ProductService {
       params = params.set('search', search);
     }
 
+    const headers = new HttpHeaders().set('X-Store-ID', environment.storeId);
+
     return this.http
-      .get<ProductResponse>(`${this.apiUrl}/products`, { params })
+      .get<ProductResponse>(`${this.apiUrl}/products`, { params, headers })
       .pipe(
         map((result) => ({
           total: result.total,
@@ -38,6 +41,24 @@ export class ProductService {
             })),
           })),
         }))
+      );
+  }
+
+  public getProductById(id: number): Observable<any> {
+    const headers = new HttpHeaders().set('X-Store-ID', environment.storeId);
+
+    return this.http
+      .get<any>(`${this.apiUrl}/products/${id}`, { headers })
+      .pipe(
+        map((result) => {
+          if (result && result.images) {
+            result.images = result.images.map((image: ProductImage) => ({
+              ...image,
+              fullPath: `http://localhost:5500/${image.image_path}`,
+            }));
+          }
+          return result;
+        })
       );
   }
 

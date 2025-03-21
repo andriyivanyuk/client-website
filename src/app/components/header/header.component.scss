@@ -1,36 +1,46 @@
+@use "../../../assets/scss/variables" as vars;
+
 .main-navbar {
   position: sticky;
   top: 0;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  background: #285059;
+  background: vars.$main-color;
   color: white;
   z-index: 99;
   padding: 0 16px;
 
-  a {
+  .main-logo {
+    max-width: 150px;
     cursor: pointer;
     color: white;
-    text-decoration: none;
+
+    img {
+      width: 100%;
+    }
   }
 
   .menu-list {
     display: flex;
-    flex-direction: row;
+    align-items: center;
+    column-gap: 1rem;
 
-    ::ng-deep .mdc-list-item__primary-text {
-      color: white;
-      font-size: 14px;
+    a {
+      font-size: 10px;
+      color: vars.$white-color;
       letter-spacing: 3px;
-    }
-
-    ::ng-deep .mdc-list-item__content {
-      overflow: unset;
+      text-transform: uppercase;
+      padding: 12px;
     }
   }
 
   mat-icon {
     color: white;
   }
+}
+
+.active-link {
+  background-color: rgba(255, 255, 255, 0.2);
+  border-radius: 5px;
 }
