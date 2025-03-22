@@ -73,15 +73,14 @@
     }
 
     <div class="btn-group">
-      <button class="shop-btn" mat-flat-button routerLink="/client/shop-list">
+      <button class="primary-button" routerLink="/client/shop-list">
         До магазину
       </button>
 
       @if(dataSource.data.length) {
       <button
         [disabled]="!dataSource.data.length"
-        class="shop-btn"
-        mat-flat-button
+        class="primary-button"
         routerLink="/client/checkout"
       >
         Оформити замовлення
