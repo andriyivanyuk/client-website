@@ -7,14 +7,13 @@
   align-items: center;
   justify-content: space-between;
   background: vars.$main-color;
-  color: white;
+  color: vars.$white-color;
   z-index: 99;
   padding: 0 16px;
 
   .main-logo {
-    max-width: 150px;
+    max-width: 100px;
     cursor: pointer;
-    color: white;
 
     img {
       width: 100%;

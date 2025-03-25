@@ -8,6 +8,7 @@ import { catchError, Subscription } from 'rxjs';
 import { MappedProduct } from '../../../models/MappedProduct';
 import { HeadingComponent } from '../../../components/heading/heading.component';
 import { MaterialModule } from '../../../modules/material.module';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-shop-list',
@@ -27,6 +28,7 @@ export class ShopListComponent implements OnInit {
   limit = 20;
 
   isLoaded: boolean = false;
+  productIsAvailable: boolean = false;
 
   dataSource = new MatTableDataSource<any>();
 
@@ -62,11 +64,17 @@ export class ShopListComponent implements OnInit {
         next: (result) => {
           const products = this.productService.mapProducts(result.products);
           this.products = products;
+
           this.totalProducts = products.length;
-          if (result.products.length) {
+          if (result) {
             this.isLoaded = true;
           } else {
             this.isLoaded = false;
+          }
+          if (!!result.products.length) {
+            this.productIsAvailable = true;
+          } else {
+            this.productIsAvailable = false;
           }
         },
         error: (error) => {

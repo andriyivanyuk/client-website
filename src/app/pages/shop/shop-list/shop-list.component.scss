@@ -8,6 +8,12 @@
   flex-wrap: wrap;
 }
 
+.empty {
+  margin-top: 1rem;
+  text-align: center;
+  color: vars.$main-color;
+}
+
 .loading-progress {
   @include mat.progress-bar-overrides(
     (

@@ -5,6 +5,7 @@ import { ShopListComponent } from './pages/shop/shop-list/shop-list.component';
 import { ShopCardComponent } from './pages/shop/shop-cart/shop-card.component';
 import { CheckoutComponent } from './pages/shop/checkout/checkout.component';
 import { ContactComponent } from './pages/contact/contact.component';
+import { ProductDetailsComponent } from './pages/shop/product-details/product-details.component';
 
 export const routes: Routes = [
   {
@@ -24,6 +25,10 @@ export const routes: Routes = [
       { path: 'shop-list', component: ShopListComponent },
       { path: 'shop-cart', component: ShopCardComponent },
       { path: 'checkout', component: CheckoutComponent },
+      {
+        path: 'product-details/:id',
+        component: ProductDetailsComponent,
+      },
     ],
   },
 

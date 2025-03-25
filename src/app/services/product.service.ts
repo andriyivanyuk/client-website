@@ -9,6 +9,10 @@ import { environment } from '../../environments/environment';
 export class ProductService {
   private apiUrl = 'http://localhost:5500/api/client';
 
+  private r2PublicDomain =
+    'https://pub-f2a1168bcc8267043d925c14d7a08960.r2.dev';
+  private workerDomain = 'https://r2-proxy-worker.andriyivvanyuk.workers.dev';
+
   constructor(private http: HttpClient) {}
 
   public getProducts(
@@ -73,9 +77,13 @@ export class ProductService {
         price: product.price,
         stock: product.stock,
         status_name: product.status_name,
-        fullPath: primaryImage ? primaryImage.fullPath : null,
+        fullPath: this.replaceDomain(primaryImage.image_path),
         quantity: product.quantity || null,
       };
     });
+  }
+
+  public replaceDomain(imagePath: string): string {
+    return imagePath.replace(this.r2PublicDomain, this.workerDomain);
   }
 }

@@ -1,4 +1,4 @@
-<div class="card">
+<div class="card" (click)="productDetails(product.product_id)">
   <img [src]="product!.fullPath" />
 
   <div class="product-details">
@@ -6,7 +6,7 @@
     <div class="product-details-actions">
       <div class="price">{{ product.price }} ₴</div>
       <button
-        (click)="addToCart(product)"
+        (click)="addToCart(product, $event)"
         mat-icon-button
         matTooltip="Додати в кошик"
       >
