@@ -1,5 +1,11 @@
 @use "../src/assets/scss/main.scss" as main;
 
+@use "swiper/css";
+@use "swiper/css/navigation";
+@use "swiper/css/pagination";
+
+@use "photoswipe/style.css";
+
 html,
 body {
   margin: 0;

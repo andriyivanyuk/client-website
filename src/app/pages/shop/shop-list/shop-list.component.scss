@@ -11,13 +11,13 @@
 .empty {
   margin-top: 1rem;
   text-align: center;
-  color: vars.$main-color;
+  color: vars.$black-color;
 }
 
 .loading-progress {
   @include mat.progress-bar-overrides(
     (
-      active-indicator-color: vars.$main-color,
+      active-indicator-color: vars.$red-color,
     )
   );
 }

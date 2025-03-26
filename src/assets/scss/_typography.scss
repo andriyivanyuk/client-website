@@ -13,11 +13,12 @@ h3,
 h4,
 h5,
 mat-dialog-content {
-  color: vars.$main-color !important;
+  color: vars.$black-color !important;
 }
 
 ul {
   list-style: none;
+  padding-inline-start: 0;
 }
 
 a {
@@ -25,10 +26,10 @@ a {
 }
 
 mat-dialog-actions span {
-  color: vars.$main-color !important;
+  color: vars.$black-color !important;
 }
 
 table {
   background-color: vars.$white-color !important;
-  color: vars.$main-color !important;
+  color: vars.$black-color !important;
 }

@@ -9,13 +9,19 @@ import { MappedProduct } from '../../../models/MappedProduct';
 import { HeadingComponent } from '../../../components/heading/heading.component';
 import { MaterialModule } from '../../../modules/material.module';
 import { Router } from '@angular/router';
+import { NgxSpinnerModule, NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
   selector: 'app-shop-list',
-  imports: [ShopListItemComponent, HeadingComponent, MaterialModule],
+  imports: [
+    ShopListItemComponent,
+    HeadingComponent,
+    MaterialModule,
+    NgxSpinnerModule,
+  ],
   templateUrl: './shop-list.component.html',
   styleUrl: './shop-list.component.scss',
-  providers: [ProductService],
+  providers: [ProductService, NgxSpinnerService],
 })
 export class ShopListComponent implements OnInit {
   title: string = 'Товари';
@@ -32,6 +38,7 @@ export class ShopListComponent implements OnInit {
 
   dataSource = new MatTableDataSource<any>();
 
+  readonly spinner = inject(NgxSpinnerService);
   readonly fb = inject(FormBuilder);
   readonly productService = inject(ProductService);
 
@@ -52,6 +59,7 @@ export class ShopListComponent implements OnInit {
   }
 
   public getProducts(value: string = ''): void {
+    this.spinner.show();
     this.isLoaded = false;
     const subscription = this.productService
       .getProducts(this.page, this.limit, value)
@@ -67,6 +75,7 @@ export class ShopListComponent implements OnInit {
 
           this.totalProducts = products.length;
           if (result) {
+            this.spinner.hide();
             this.isLoaded = true;
           } else {
             this.isLoaded = false;

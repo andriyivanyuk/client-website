@@ -1,4 +1,5 @@
 @use "@angular/material" as mat;
+@use "../../../../assets/scss//variables" as vars;
 
 .card {
   max-width: 230px;
@@ -26,11 +27,11 @@
     }
 
     .mat-icon {
-      color: #285059;
+      color: vars.$black-color;
     }
   }
   &:hover {
-    box-shadow: 0 0 0 3px #87cbdb;
-    border-radius: 1px;
+    box-shadow: 0 0 0 2px vars.$black-color;
+    border-radius: 2px;
   }
 }

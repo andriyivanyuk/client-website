@@ -1,18 +1,55 @@
 @use "../../../assets/scss/variables" as vars;
 
+.top-header {
+  position: sticky;
+  top: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: vars.$black-color;
+  z-index: 99;
+  padding: 12px 16px 12px 28px;
+  border-bottom: 1px solid vars.$border-color;
+
+  .operation {
+    font-size: 14px;
+    color: vars.$white-color;
+    column-gap: 12px;
+    display: flex;
+    font-weight: 500;
+
+    &-title {
+      font-size: 14px;
+    }
+
+    &-time {
+      color: vars.$red-color;
+    }
+  }
+
+  .number {
+    font-size: 14px;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    column-gap: 12px;
+    color: vars.$white-color;
+  }
+}
+
 .main-navbar {
   position: sticky;
   top: 0;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  background: vars.$main-color;
-  color: vars.$white-color;
+  background: vars.$white-color;
   z-index: 99;
   padding: 0 16px;
+  border-bottom: 1px solid vars.$border-color;
 
   .main-logo {
-    max-width: 100px;
+    max-width: 65px;
     cursor: pointer;
 
     img {
@@ -26,20 +63,23 @@
     column-gap: 1rem;
 
     a {
-      font-size: 10px;
-      color: vars.$white-color;
+      font-size: 12px;
+      color: vars.$black-color;
       letter-spacing: 3px;
       text-transform: uppercase;
-      padding: 12px;
+      padding: 16px;
+      font-weight: 600;
     }
   }
 
   mat-icon {
-    color: white;
+    color: vars.$black-color;
+    height: 30px;
+    width: 30px;
+    font-size: 30px;
   }
 }
 
 .active-link {
-  background-color: rgba(255, 255, 255, 0.2);
-  border-radius: 5px;
+  color: vars.$red-color !important;
 }

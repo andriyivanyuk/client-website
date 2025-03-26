@@ -6,14 +6,18 @@
 <div class="products">
   @if(isLoaded) { @for(product of products; track product) {
   <app-shop-list-item [product]="product"></app-shop-list-item>
-  } } @else {
-  <mat-progress-bar
-    mode="indeterminate"
-    class="loading-progress"
-  ></mat-progress-bar>
-  }
+  } }
 </div>
 
 @if(!productIsAvailable) {
 <div class="empty">Товарів не знайдено</div>
 }
+
+<ngx-spinner
+  bdColor="rgba(0, 0, 0, 0.8)"
+  size="medium"
+  color="#ffffff"
+  type="square-jelly-box"
+  [fullScreen]="true"
+  ><p style="color: #ffffff">Завантаження продуктів</p></ngx-spinner
+>
