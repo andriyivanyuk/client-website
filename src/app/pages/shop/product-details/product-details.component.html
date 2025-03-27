@@ -1,57 +1,38 @@
 <app-heading [title]="title"></app-heading>
 <div class="product-details">
-  <div class="slider-container">
-    <div class="gallery-container">
-      <div class="main-image">
-        <img
-          [src]="selectedImage"
-          class="main-slide-img"
-          (click)="openGallery(selectedImageIndex)"
-        />
-      </div>
-
-      <div class="thumbs-swiper-container">
-        <swiper-container
-          #thumbsSwiper
-          slides-per-view="3"
-          direction="vertical"
-          navigation="true"
-          space-between="10"
-          watch-slides-progress="true"
-          class="thumbs-swiper"
+  <div class="product-details-slider">
+    <swiper-container
+      class="main-swiper"
+      thumbs-swiper=".thumbs-swiper"
+      navigation="true"
+      pagination="true"
+      space-between="10"
+      slides-per-view="1"
+      pagination-clickable="true"
+      id="swiper-gallery"
+    >
+      <swiper-slide *ngFor="let img of images; let i = index">
+        <div
+          class="zoomable-img"
+          (click)="openLightbox(i)"
+          role="button"
+          tabindex="0"
         >
-          <swiper-slide
-            *ngFor="let img of productImages; let idx = index"
-            (click)="selectImage(idx)"
-            [class.active]="idx === selectedImageIndex"
-          >
-            <img [src]="img" class="thumb-img" />
-          </swiper-slide>
-        </swiper-container>
-      </div>
-    </div>
+          <img [src]="img" alt="Slide image" />
+        </div>
+      </swiper-slide>
+    </swiper-container>
 
-    <div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
-      <div class="pswp__bg"></div>
-      <div class="pswp__scroll-wrap">
-        <div class="pswp__container">
-          <div class="pswp__item"></div>
-          <div class="pswp__item"></div>
-          <div class="pswp__item"></div>
-        </div>
-        <div class="pswp__ui pswp__ui--hidden">
-          <button class="pswp__button pswp__button--close"></button>
-          <button class="pswp__button pswp__button--zoom"></button>
-          <div class="pswp__preloader">
-            <div class="pswp__preloader__icn">
-              <div class="pswp__preloader__cut">
-                <div class="pswp__preloader__donut"></div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
+    <swiper-container
+      class="thumbs-swiper"
+      slides-per-view="4"
+      space-between="10"
+      watch-slides-progress="true"
+    >
+      <swiper-slide *ngFor="let img of images">
+        <img [src]="img" class="thumb-img" alt="Thumbnail" />
+      </swiper-slide>
+    </swiper-container>
   </div>
-  <div class="general-info">test</div>
+  <div class="product-details-info"></div>
 </div>
