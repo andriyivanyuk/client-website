@@ -1,38 +1,75 @@
 <app-heading [title]="title"></app-heading>
 <div class="product-details">
-  <div class="product-details-slider">
-    <swiper-container
-      class="main-swiper"
-      thumbs-swiper=".thumbs-swiper"
-      navigation="true"
-      pagination="true"
-      space-between="10"
-      slides-per-view="1"
-      pagination-clickable="true"
-      id="swiper-gallery"
-    >
-      <swiper-slide *ngFor="let img of images; let i = index">
-        <div
-          class="zoomable-img"
-          (click)="openLightbox(i)"
-          role="button"
-          tabindex="0"
-        >
-          <img [src]="img" alt="Slide image" />
-        </div>
-      </swiper-slide>
-    </swiper-container>
+  <app-slider></app-slider>
 
-    <swiper-container
-      class="thumbs-swiper"
-      slides-per-view="4"
-      space-between="10"
-      watch-slides-progress="true"
-    >
-      <swiper-slide *ngFor="let img of images">
-        <img [src]="img" class="thumb-img" alt="Thumbnail" />
-      </swiper-slide>
-    </swiper-container>
+  <div class="product-details-info">
+    <div class="main-details">
+      <div class="main-details-item">
+        <div>Виробник:</div>
+        <div>Miriam</div>
+      </div>
+      <div class="main-details-item">
+        <div>Гарантія:</div>
+        <div>12 місяців</div>
+      </div>
+      <div class="main-details-item">
+        <div>Термін виготовлення:</div>
+        <div>10 днів</div>
+      </div>
+    </div>
+    <div class="price-details">
+      <div class="price-details-value">2500 грн</div>
+      <div>Ціна вказана за базову комплектацію</div>
+    </div>
+    <div class="btn-group">
+      <button class="primary-button basket">
+        <mat-icon>shopping_cart</mat-icon>
+        <span>До кошика</span>
+      </button>
+    </div>
   </div>
-  <div class="product-details-info"></div>
+</div>
+<div class="product-сharacteristics">
+  <mat-tab-group class="product-tab">
+    <mat-tab label="Опис">
+      <div class="content">
+        <div class="param-title">Оберіть необхідні параметри:</div>
+        @for(config of calculatePriceService.parameterConfigs; track config.key)
+        {
+        <div class="height-option-box">
+          <h3>{{ config.key }}</h3>
+
+          <div class="height-grid">
+            @for(option of config.options; track option) {
+            <div>
+              <label
+                [class.selected]="option.value === selectedValues[config.key]()"
+              >
+                <input
+                  hidden
+                  type="radio"
+                  [value]="option.value"
+                  [checked]="option.value === selectedValues[config.key]()"
+                  (change)="selectOption(config.key, option.value)"
+                />
+                <div class="option-label">{{ option.value }} мм</div>
+              </label>
+
+              @if(option.value !== selectedValues[config.key]()) {
+              <div class="price-diff">
+                {{ differences[config.key]()[option.value] > 0 ? "+" : "" }}
+                {{ differences[config.key]()[option.value] }} грн
+              </div>
+              }
+            </div>
+            }
+          </div>
+        </div>
+        }
+      </div>
+    </mat-tab>
+    <mat-tab label="Характеристики">
+      <div class="content">Характеристики</div>
+    </mat-tab>
+  </mat-tab-group>
 </div>

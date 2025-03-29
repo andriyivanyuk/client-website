@@ -10,7 +10,7 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { OrderRequest } from '../../../models/Order';
+import { OrderRequest } from '../../../models/order';
 import { NgxUiLoaderService } from 'ngx-ui-loader';
 import { CartService } from '../../../services/cart.service';
 

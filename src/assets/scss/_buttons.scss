@@ -8,7 +8,7 @@
   $hover-color,
   $hover-border
 ) {
-  font-family: "Lato", sans-serif;
+  font-family: "Montserrat", sans-serif;
   background-color: $bg;
   border: 1px solid $border;
   color: $color;
@@ -19,7 +19,7 @@
   font-size: 14px;
   transition-duration: 0.4s;
   cursor: pointer;
-  border-radius: 20px;
+  border-radius: 6px;
 
   &:hover {
     background-color: $hover-bg;
@@ -40,7 +40,7 @@
     vars.$main-color,
     vars.$primary-hover,
     vars.$white-color,
-    vars.$main-color
+    vars.$primary-hover
   );
 }
 

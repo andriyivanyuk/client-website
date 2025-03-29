@@ -5,7 +5,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { PageEvent } from '@angular/material/paginator';
 import { catchError, Subscription } from 'rxjs';
-import { MappedProduct } from '../../../models/MappedProduct';
+import { MappedProduct } from '../../../models/mappedProduct';
 import { HeadingComponent } from '../../../components/heading/heading.component';
 import { MaterialModule } from '../../../modules/material.module';
 import { Router } from '@angular/router';
@@ -36,6 +36,7 @@ export class ShopListComponent implements OnInit {
   isLoaded: boolean = false;
   productIsAvailable: boolean = false;
 
+  products: MappedProduct[] = [];
   dataSource = new MatTableDataSource<any>();
 
   readonly spinner = inject(NgxSpinnerService);
@@ -47,7 +48,6 @@ export class ShopListComponent implements OnInit {
       title: ['', [Validators.required]],
     });
   }
-  products: MappedProduct[] = [];
 
   ngOnInit(): void {
     this.createForm();
@@ -87,6 +87,7 @@ export class ShopListComponent implements OnInit {
           }
         },
         error: (error) => {
+          this.spinner.hide();
           console.error(error);
         },
       });

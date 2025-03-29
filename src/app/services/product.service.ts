@@ -1,9 +1,14 @@
 import { HttpClient, HttpParams, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { map, Observable } from 'rxjs';
-import { ProductImage, ProductResponse } from '../models/ProductResponse';
-import { MappedProduct } from '../models/MappedProduct';
+
+import { MappedProduct } from '../models/mappedProduct';
 import { environment } from '../../environments/environment';
+import {
+  Product,
+  ProductImage,
+  ProductResponse,
+} from '../models/productResponse';
 
 @Injectable()
 export class ProductService {
@@ -48,11 +53,11 @@ export class ProductService {
       );
   }
 
-  public getProductById(id: number): Observable<any> {
+  public getProductById(id: number): Observable<Product> {
     const headers = new HttpHeaders().set('X-Store-ID', environment.storeId);
 
     return this.http
-      .get<any>(`${this.apiUrl}/products/${id}`, { headers })
+      .get<Product>(`${this.apiUrl}/product/${id}`, { headers })
       .pipe(
         map((result) => {
           if (result && result.images) {

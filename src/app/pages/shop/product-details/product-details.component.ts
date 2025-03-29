@@ -1,60 +1,99 @@
 import {
   Component,
+  computed,
   CUSTOM_ELEMENTS_SCHEMA,
+  inject,
   Inject,
+  OnInit,
   PLATFORM_ID,
+  Signal,
+  signal,
+  WritableSignal,
 } from '@angular/core';
-import { ActivatedRoute, RouterLink } from '@angular/router';
+
 import { MaterialModule } from '../../../modules/material.module';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
 
 import { HeadingComponent } from '../../../components/heading/heading.component';
 
-import { register } from 'swiper/element/bundle';
-register();
-
-import 'photoswipe/style.css';
-import PhotoSwipe from 'photoswipe';
+import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
+import { CalculatePriceService } from '../../../services/calculate-price.service';
+import { ActivatedRoute } from '@angular/router';
+import { ProductService } from '../../../services/product.service';
+import { SliderComponent } from "../slider/slider.component";
 
 @Component({
   selector: 'app-product-details',
   templateUrl: './product-details.component.html',
   styleUrls: ['./product-details.component.scss'],
-  schemas: [CUSTOM_ELEMENTS_SCHEMA],
-  imports: [MaterialModule, CommonModule, HeadingComponent],
+  imports: [
+    MaterialModule,
+    CommonModule,
+    HeadingComponent,
+    ReactiveFormsModule,
+    SliderComponent
+],
+  providers: [CalculatePriceService, ProductService],
 })
-export class ProductDetailsComponent {
+export class ProductDetailsComponent implements OnInit {
   title: string = 'Деталі продукту';
 
-  images: string[] = [
-    'https://picsum.photos/id/1011/1200/800',
-    'https://picsum.photos/id/1015/1200/800',
-    'https://picsum.photos/id/1016/1200/800',
-    'https://picsum.photos/id/1020/1200/800',
-    'https://picsum.photos/id/1021/1200/800',
-  ];
+  selectedValues: { [key: string]: WritableSignal<number> } = {};
 
-  constructor(@Inject(PLATFORM_ID) private platformId: Object) {}
+  differences: { [key: string]: Signal<{ [value: number]: number }> } = {};
 
-  public openLightbox(index: number): void {
-    if (!isPlatformBrowser(this.platformId)) return;
+  private fb = inject(FormBuilder);
+  public calculatePriceService = inject(CalculatePriceService);
+  private productService = inject(ProductService);
 
-    const items = this.images.map((src) => ({
-      src,
-      width: 1200,
-      height: 800,
-    }));
+  private route = inject(ActivatedRoute);
 
-    const pswp = new PhotoSwipe({
-      dataSource: items,
-      index,
-    });
+  ngOnInit(): void {
+    this.handleActiveId();
+  }
 
-    pswp.init();
+  selectOption(parameterKey: string, value: number): void {
+    this.selectedValues[parameterKey].set(value);
   }
 
   public handleActiveId(): void {
-    // const productId = this.route.snapshot.paramMap.get('id')!;
-    // console.log(+productId);
+    const productId = this.route.snapshot.paramMap.get('id')!;
+    this.getProductDetails(+productId);
+  }
+
+  public getProductDetails(id: number) {
+    this.productService.getProductById(id).subscribe({
+      next: (result) => {
+        this.calculatePriceService.initParameterConfigs(result.attributes);
+        this.calculatePriceService.parameterConfigs.forEach((config) => {
+          this.selectedValues[config.key] = signal(config.options[0].value);
+
+          this.differences[config.key] = computed(
+            (): { [value: number]: number } => {
+              const selected = this.selectedValues[config.key]();
+              const diffMapping: { [value: number]: number } = {};
+              config.options.forEach((option) => {
+                if (option.value !== selected) {
+                  diffMapping[option.value] =
+                    this.calculatePriceService.computeDifference(
+                      config.key,
+                      selected,
+                      option.value
+                    );
+                }
+              });
+              return diffMapping;
+            }
+          );
+        });
+        this.calculatePriceService.updatePrice('Висота, мм', 2100, 0);
+        this.calculatePriceService.updatePrice('Висота, мм', 2400, 720);
+        this.calculatePriceService.updatePrice('Висота, мм', 2500, 1015);
+        this.calculatePriceService.updatePrice('Висота, мм', 2600, 1300);
+      },
+      error: (error) => {
+        console.error(error);
+      },
+    });
   }
 }

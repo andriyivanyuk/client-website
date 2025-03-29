@@ -2,7 +2,7 @@ import { Component, inject, Input, OnInit } from '@angular/core';
 import { MaterialModule } from '../../../modules/material.module';
 import { ProductService } from '../../../services/product.service';
 import { CartService } from '../../../services/cart.service';
-import { MappedProduct } from '../../../models/MappedProduct';
+import { MappedProduct } from '../../../models/mappedProduct';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 
@@ -25,7 +25,6 @@ export class ShopListItemComponent {
   }
 
   public productDetails(id: number) {
-    console.log(id);
     this.router.navigate(['/client/product-details', id]);
   }
 }
